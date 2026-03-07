@@ -6,14 +6,15 @@ app = marimo.App(width="full")
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""# Plotting Isobaric Binary Phase Diagrams with `binplot`""")
+    mo.md(r"""
+    # Plotting Isobaric Binary Phase Diagrams with `binplot`
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     These are a few examples of how to use Thermo-Calc TDB files to calculate isobaric binary phase diagrams. As long as the TDB file is present, each cell in these examples is self contained and can completely reproduce the figure shown.
 
     ### binplot
@@ -32,7 +33,7 @@ def _(mo):
 
     ### TDB files
 
-    The TDB files should be located in the current working directory of the notebook. If you are running using a Jupyter notebook, the default working directory is the directory that that notebook is saved in. 
+    The TDB files should be located in the current working directory of the notebook. If you are running using a Jupyter notebook, the default working directory is the directory that that notebook is saved in.
 
     To check the working directory, run:
 
@@ -49,21 +50,21 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""## Al-Zn (S. Mey, 1993)""")
+    mo.md(r"""
+    ## Al-Zn (S. Mey, 1993)
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     The miscibility gap in the fcc phase is included in the Al-Zn diagram, shown below.
 
     The format for specifying a range of a state variable is (*start*, *stop*, *step*).
 
     S. an Mey, Zeitschrift für Metallkunde 84(7) (1993) 451-455.
-    """
-    )
+    """)
     return
 
 
@@ -94,13 +95,11 @@ def _(Database, binplot, plt, v):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Al-Mg (Y. Zhong, 2005)
 
     Y. Zhong, M. Yang, Z.-K. Liu, CALPHAD 29 (2005) 303-311 doi:[10.1016/j.calphad.2005.08.004](https://doi.org/10.1016/j.calphad.2005.08.004)
-    """
-    )
+    """)
     return
 
 
@@ -116,15 +115,13 @@ def _(Database, binplot, plt, v):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Al-Ni (Dupin, 2001)
 
     Components and conditions can also be stored as variables and passed to binplot.
 
     N. Dupin, I. Ansara, B. Sundman, CALPHAD 25(2) (2001) 279-298 doi:[10.1016/S0364-5916(01)00049-9](https://doi.org/10.1016/S0364-5916(01)00049-9)
-    """
-    )
+    """)
     return
 
 
@@ -143,13 +140,11 @@ def _(Database, binplot, plt, v):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Al-Fe (M. Seiersten, 1991)
 
     Removing tielines
-    """
-    )
+    """)
     return
 
 
@@ -186,12 +181,13 @@ def _(Database_1, binplot_1, plt, v_1):
     binplot_1(db_nbre, ['NB', 'RE'], my_phases_nbre, {v_1.X('RE'): (0, 1, 0.01), v_1.T: (1000, 3500, 20), v_1.P: 101325}, plot_kwargs={'ax': _axes})
     _axes.set_xlim(0, 1)
     plt.show()
-    return Database, binplot, v
+    return
 
 
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 
