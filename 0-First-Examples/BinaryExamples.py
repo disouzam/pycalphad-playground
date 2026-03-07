@@ -43,9 +43,24 @@ def _(mo):
     ```
 
     TDB files can be found in the literature. The [Thermodynamic DataBase DataBase](https://avdwgroup.engin.brown.edu) (TDBDB) has indexed many available databases and links to the original papers and/or TDB files where possible.
-    """
-    )
+    """)
     return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Imports
+    """)
+    return
+
+
+@app.cell
+def _():
+    import matplotlib.pyplot as plt
+    from pycalphad import Database, binplot, variables as v
+
+    return Database, binplot, plt, v
 
 
 @app.cell(hide_code=True)
@@ -69,17 +84,14 @@ def _(mo):
 
 
 @app.cell
-def _():
-    import matplotlib.pyplot as plt
-    from pycalphad import Database, binplot
-    import pycalphad.variables as v
+def _(Database, binplot, plt, v):
     _db_alzn = Database('alzn_mey.tdb')
     _my_phases_alzn = ['LIQUID', 'FCC_A1', 'HCP_A3']
     _fig = plt.figure(figsize=(9, 6))
     _axes = _fig.gca()
     binplot(database=_db_alzn, components=['AL', 'ZN', 'VA'], phases=_my_phases_alzn, conditions={v.X('ZN'): (0, 1, 0.02), v.T: (300, 1000, 10), v.P: 101325, v.N: 1}, plot_kwargs={'ax': _axes})
     plt.show()
-    return Database, binplot, plt, v
+    return
 
 
 @app.cell
@@ -161,19 +173,16 @@ def _(Database, binplot, plt, v):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Nb-Re (Liu, 2013)
 
     X.L. Liu, C.Z. Hargather, Z.-K. Liu, CALPHAD 41 (2013) 119-127 doi:[10.1016/j.calphad.2013.02.006](https://doi.org/10.1016/j.calphad.2013.02.006)
-    """
-    )
+    """)
     return
 
 
 @app.cell
 def _(Database_1, binplot_1, plt, v_1):
-    from pycalphad import Database, binplot, variables as v
     db_nbre = Database_1('nbre_liu.tdb')
     my_phases_nbre = ['CHI_RENB', 'SIGMARENB', 'FCC_RENB', 'LIQUID_RENB', 'BCC_RENB', 'HCP_RENB']
     _fig = plt.figure(figsize=(9, 6))
