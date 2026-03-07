@@ -4,6 +4,13 @@ __generated_with = "0.20.4"
 app = marimo.App(width="full")
 
 
+@app.cell
+def _():
+    import marimo as mo
+
+    return (mo,)
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -100,12 +107,18 @@ def _(mo):
 
 @app.cell
 def _(Database, Path, binplot, notebook_path, plt, v):
-    _alzn_path = Path(notebook_path).joinpath('alzn_mey.tdb')
+    _alzn_path = Path(notebook_path).joinpath("alzn_mey.tdb")
     _db_alzn = Database(_alzn_path)
-    _my_phases_alzn = ['LIQUID', 'FCC_A1', 'HCP_A3']
+    _my_phases_alzn = ["LIQUID", "FCC_A1", "HCP_A3"]
     _fig = plt.figure(figsize=(9, 6))
     _axes = _fig.gca()
-    binplot(database=_db_alzn, components=['AL', 'ZN', 'VA'], phases=_my_phases_alzn, conditions={v.X('ZN'): (0, 1, 0.02), v.T: (300, 1000, 10), v.P: 101325, v.N: 1}, plot_kwargs={'ax': _axes})
+    binplot(
+        database=_db_alzn,
+        components=["AL", "ZN", "VA"],
+        phases=_my_phases_alzn,
+        conditions={v.X("ZN"): (0, 1, 0.02), v.T: (300, 1000, 10), v.P: 101325, v.N: 1},
+        plot_kwargs={"ax": _axes},
+    )
     plt.show()
     return
 
@@ -121,11 +134,12 @@ def _(mo):
 
 
 @app.cell
-def _(Database, binplot, plt, v):
-    _dbf = Database('Al-Mg_Zhong.tdb')
-    _comps = ['AL', 'MG', 'VA']
+def _(Database, Path, binplot, notebook_path, plt, v):
+    _almg_path = Path(notebook_path).joinpath("Al-Mg_Zhong.tdb")
+    _dbf = Database(_almg_path)
+    _comps = ["AL", "MG", "VA"]
     _phases = _dbf.phases.keys()
-    binplot(_dbf, _comps, _phases, {v.N: 1, v.P: 101325, v.T: (300, 1000, 10), v.X('MG'): (0, 1, 0.02)})
+    binplot(_dbf, _comps, _phases, {v.N: 1, v.P: 101325, v.T: (300, 1000, 10), v.X("MG"): (0, 1, 0.02)})
     plt.show()
     return
 
@@ -143,14 +157,15 @@ def _(mo):
 
 
 @app.cell
-def _(Database, binplot, plt, v):
-    _dbf = Database('NI_AL_DUPIN_2001.TDB')
-    _comps = ['AL', 'NI', 'VA']
+def _(Database, Path, binplot, notebook_path, plt, v):
+    _ni_al_path = Path(notebook_path).joinpath("NI_AL_DUPIN_2001.TDB")
+    _dbf = Database(_ni_al_path)
+    _comps = ["AL", "NI", "VA"]
     _phases = list(_dbf.phases.keys())
-    conds = {v.N: 1, v.P: 101325, v.T: (300, 2000, 10), v.X('AL'): (1e-05, 1, 0.02)}
+    conds = {v.N: 1, v.P: 101325, v.T: (300, 2000, 10), v.X("AL"): (1e-05, 1, 0.02)}
     _fig = plt.figure(figsize=(9, 6))
     _axes = _fig.gca()
-    binplot(_dbf, _comps, _phases, conds, plot_kwargs={'ax': _axes})
+    binplot(_dbf, _comps, _phases, conds, plot_kwargs={"ax": _axes})
     plt.show()
     return
 
@@ -166,12 +181,19 @@ def _(mo):
 
 
 @app.cell
-def _(Database, binplot, plt, v):
-    db_alfe = Database('alfe_sei.TDB')
-    my_phases_alfe = ['LIQUID', 'B2_BCC', 'FCC_A1', 'HCP_A3', 'AL5FE2', 'AL2FE', 'AL13FE4', 'AL5FE4']
+def _(Database, Path, binplot, notebook_path, plt, v):
+    _alfe_path = Path(notebook_path).joinpath("alfe_sei.TDB")
+    db_alfe = Database(_alfe_path)
+    my_phases_alfe = ["LIQUID", "B2_BCC", "FCC_A1", "HCP_A3", "AL5FE2", "AL2FE", "AL13FE4", "AL5FE4"]
     _fig = plt.figure(figsize=(9, 6))
     _axes = _fig.gca()
-    binplot(db_alfe, ['AL', 'FE', 'VA'], my_phases_alfe, {v.X('AL'): (0, 1, 0.01), v.T: (300, 2000, 10), v.P: 101325}, plot_kwargs={'ax': _axes, 'tielines': False})
+    binplot(
+        db_alfe,
+        ["AL", "FE", "VA"],
+        my_phases_alfe,
+        {v.X("AL"): (0, 1, 0.01), v.T: (300, 2000, 10), v.P: 101325},
+        plot_kwargs={"ax": _axes, "tielines": False},
+    )
     plt.show()
     return
 
@@ -187,22 +209,22 @@ def _(mo):
 
 
 @app.cell
-def _(Database_1, binplot_1, plt, v_1):
-    db_nbre = Database_1('nbre_liu.tdb')
-    my_phases_nbre = ['CHI_RENB', 'SIGMARENB', 'FCC_RENB', 'LIQUID_RENB', 'BCC_RENB', 'HCP_RENB']
+def _(Database, Path, binplot, notebook_path, plt, v):
+    _nbre_path = Path(notebook_path).joinpath("nbre_liu.tdb")
+    db_nbre = Database(_nbre_path)
+    my_phases_nbre = ["CHI_RENB", "SIGMARENB", "FCC_RENB", "LIQUID_RENB", "BCC_RENB", "HCP_RENB"]
     _fig = plt.figure(figsize=(9, 6))
     _axes = _fig.gca()
-    binplot_1(db_nbre, ['NB', 'RE'], my_phases_nbre, {v_1.X('RE'): (0, 1, 0.01), v_1.T: (1000, 3500, 20), v_1.P: 101325}, plot_kwargs={'ax': _axes})
+    binplot(
+        db_nbre,
+        ["NB", "RE"],
+        my_phases_nbre,
+        {v.X("RE"): (0, 1, 0.01), v.T: (1000, 3500, 20), v.P: 101325},
+        plot_kwargs={"ax": _axes},
+    )
     _axes.set_xlim(0, 1)
     plt.show()
     return
-
-
-@app.cell
-def _():
-    import marimo as mo
-
-    return (mo,)
 
 
 if __name__ == "__main__":
