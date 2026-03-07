@@ -192,3 +192,8 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+0-First-Examples/Al-Mg_Zhong.tdb
+0-First-Examples/alfe_sei.TDB
+0-First-Examples/alzn_mey.tdb
+0-First-Examples/nbre_liu.tdb
+0-First-Examples/NI_AL_DUPIN_2001.TDB
