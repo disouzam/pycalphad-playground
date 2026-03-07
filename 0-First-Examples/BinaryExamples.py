@@ -50,6 +50,20 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    ## Path setup
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    notebook_path = mo.notebook_location()
+    return (notebook_path,)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ## Imports
     """)
     return
@@ -57,10 +71,11 @@ def _(mo):
 
 @app.cell
 def _():
+    from pathlib import Path
     import matplotlib.pyplot as plt
     from pycalphad import Database, binplot, variables as v
 
-    return Database, binplot, plt, v
+    return Database, Path, binplot, plt, v
 
 
 @app.cell(hide_code=True)
@@ -84,8 +99,9 @@ def _(mo):
 
 
 @app.cell
-def _(Database, binplot, plt, v):
-    _db_alzn = Database('alzn_mey.tdb')
+def _(Database, Path, binplot, notebook_path, plt, v):
+    _alzn_path = Path(notebook_path).joinpath('alzn_mey.tdb')
+    _db_alzn = Database(_alzn_path)
     _my_phases_alzn = ['LIQUID', 'FCC_A1', 'HCP_A3']
     _fig = plt.figure(figsize=(9, 6))
     _axes = _fig.gca()
