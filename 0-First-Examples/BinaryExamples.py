@@ -110,17 +110,6 @@ def _(Database, Path, binplot, notebook_path, plt, v):
     return
 
 
-@app.cell
-def _(Database, binplot, plt, v):
-    _db_alzn = Database('alzn_mey.tdb')
-    _my_phases_alzn = ['LIQUID', 'FCC_A1', 'HCP_A3']
-    _fig = plt.figure(figsize=(9, 6))
-    _axes = _fig.gca()
-    binplot(_db_alzn, ['AL', 'ZN', 'VA'], _my_phases_alzn, {v.X('ZN'): (0, 1, 0.01), v.T: (500, 1000, 10), v.P: 101325, v.N: 1}, plot_kwargs={'ax': _axes})
-    plt.show()
-    return
-
-
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
