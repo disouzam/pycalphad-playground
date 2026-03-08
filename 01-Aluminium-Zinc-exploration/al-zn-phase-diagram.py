@@ -57,6 +57,7 @@ def _(Database, Path, database_path):
 def _(binplot, db_alzn, plt, v):
     from pycalphad.core.utils import filter_phases
 
+    # Is there a way to get all available components in a database?
     all_available_phases = filter_phases(db_alzn, ["AL", "ZN", "VA"])
 
     _fig = plt.figure(figsize=(9, 6))
