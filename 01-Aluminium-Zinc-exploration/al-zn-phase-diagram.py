@@ -58,7 +58,7 @@ def _(binplot, db_alzn, plt, v):
     from pycalphad.core.utils import filter_phases
 
     # Is there a way to get all available components in a database?
-    all_available_phases = filter_phases(db_alzn, ["AL", "ZN", "VA"])
+    all_available_phases = filter_phases(db_alzn, ["AL", "ZN", "VA", "/-"])
 
     _fig = plt.figure(figsize=(9, 6))
     _axes = _fig.gca()
@@ -70,6 +70,55 @@ def _(binplot, db_alzn, plt, v):
         plot_kwargs={"ax": _axes},
     )
     plt.show()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    # Exploring database object
+    """)
+    return
+
+
+@app.cell
+def _(db_alzn):
+    print("Elements:")
+    for e in db_alzn.elements:
+        print(e)
+    return
+
+
+@app.cell
+def _(db_alzn):
+    print("Species:")
+    for s in iter(db_alzn.species):
+        print(s)
+    return
+
+
+@app.cell
+def _(db_alzn):
+    print("Phases:")
+    for p, pd in db_alzn.phases.items():
+        print(p)
+        print(f"{pd}\n")
+    return
+
+
+@app.cell
+def _(db_alzn):
+    print("Symbols")
+
+    for syk, syv in db_alzn.symbols.items():
+        print(syk)
+        print(f"{syv}\n")
+    return
+
+
+@app.cell
+def _(db_alzn):
+    db_alzn.references
     return
 
 
