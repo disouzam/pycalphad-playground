@@ -47,18 +47,22 @@ def _(mo):
 
 
 @app.cell
-def _(Database, Path, binplot, database_path, plt, v):
+def _(Database, Path, database_path):
     _alzn_path = Path(database_path).joinpath("alzn_mey.tdb")
-    _db_alzn = Database(_alzn_path)
+    db_alzn = Database(_alzn_path)
+    return (db_alzn,)
 
+
+@app.cell
+def _(binplot, db_alzn, plt, v):
     from pycalphad.core.utils import filter_phases
 
-    all_available_phases = filter_phases(_db_alzn, ["AL", "ZN", "VA"])
+    all_available_phases = filter_phases(db_alzn, ["AL", "ZN", "VA"])
 
     _fig = plt.figure(figsize=(9, 6))
     _axes = _fig.gca()
     binplot(
-        database=_db_alzn,
+        database=db_alzn,
         components=["AL", "ZN", "VA"],
         phases=all_available_phases,
         conditions={v.X("ZN"): (0, 1, 0.02), v.T: (300, 1000, 10), v.P: 101325, v.N: 1},
