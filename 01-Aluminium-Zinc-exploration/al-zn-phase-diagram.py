@@ -51,6 +51,9 @@ def _(Database, Path, binplot, database_path, plt, v):
     _alzn_path = Path(database_path).joinpath("alzn_mey.tdb")
     _db_alzn = Database(_alzn_path)
     _my_phases_alzn = ["LIQUID", "FCC_A1", "HCP_A3"]
+
+    # Is there a way to get phases automatically via pycalphad API?
+
     _fig = plt.figure(figsize=(9, 6))
     _axes = _fig.gca()
     binplot(
