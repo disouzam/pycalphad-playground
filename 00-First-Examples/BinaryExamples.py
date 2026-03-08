@@ -64,8 +64,11 @@ def _(mo):
 
 @app.cell
 def _(mo):
+    from pathlib import Path
+
     notebook_path = mo.notebook_location()
-    return (notebook_path,)
+    database_path = Path(notebook_path).parent.joinpath("databases")
+    return Path, database_path, notebook_path
 
 
 @app.cell(hide_code=True)
@@ -78,11 +81,11 @@ def _(mo):
 
 @app.cell
 def _():
-    from pathlib import Path
     import matplotlib.pyplot as plt
-    from pycalphad import Database, binplot, variables as v
+    from pycalphad import Database, binplot
+    from pycalphad import variables as v
 
-    return Database, Path, binplot, plt, v
+    return Database, binplot, plt, v
 
 
 @app.cell(hide_code=True)
@@ -106,8 +109,8 @@ def _(mo):
 
 
 @app.cell
-def _(Database, Path, binplot, notebook_path, plt, v):
-    _alzn_path = Path(notebook_path).joinpath("alzn_mey.tdb")
+def _(Database, Path, binplot, database_path, plt, v):
+    _alzn_path = Path(database_path).joinpath("alzn_mey.tdb")
     _db_alzn = Database(_alzn_path)
     _my_phases_alzn = ["LIQUID", "FCC_A1", "HCP_A3"]
     _fig = plt.figure(figsize=(9, 6))
@@ -134,12 +137,17 @@ def _(mo):
 
 
 @app.cell
-def _(Database, Path, binplot, notebook_path, plt, v):
-    _almg_path = Path(notebook_path).joinpath("Al-Mg_Zhong.tdb")
+def _(Database, Path, binplot, database_path, plt, v):
+    _almg_path = Path(database_path).joinpath("Al-Mg_Zhong.tdb")
     _dbf = Database(_almg_path)
     _comps = ["AL", "MG", "VA"]
     _phases = _dbf.phases.keys()
-    binplot(_dbf, _comps, _phases, {v.N: 1, v.P: 101325, v.T: (300, 1000, 10), v.X("MG"): (0, 1, 0.02)})
+    binplot(
+        _dbf,
+        _comps,
+        _phases,
+        {v.N: 1, v.P: 101325, v.T: (300, 1000, 10), v.X("MG"): (0, 1, 0.02)},
+    )
     plt.show()
     return
 
@@ -157,8 +165,8 @@ def _(mo):
 
 
 @app.cell
-def _(Database, Path, binplot, notebook_path, plt, v):
-    _ni_al_path = Path(notebook_path).joinpath("NI_AL_DUPIN_2001.TDB")
+def _(Database, Path, binplot, database_path, plt, v):
+    _ni_al_path = Path(database_path).joinpath("NI_AL_DUPIN_2001.TDB")
     _dbf = Database(_ni_al_path)
     _comps = ["AL", "NI", "VA"]
     _phases = list(_dbf.phases.keys())
@@ -181,10 +189,19 @@ def _(mo):
 
 
 @app.cell
-def _(Database, Path, binplot, notebook_path, plt, v):
-    _alfe_path = Path(notebook_path).joinpath("alfe_sei.TDB")
+def _(Database, Path, binplot, database_path, plt, v):
+    _alfe_path = Path(database_path).joinpath("alfe_sei.TDB")
     db_alfe = Database(_alfe_path)
-    my_phases_alfe = ["LIQUID", "B2_BCC", "FCC_A1", "HCP_A3", "AL5FE2", "AL2FE", "AL13FE4", "AL5FE4"]
+    my_phases_alfe = [
+        "LIQUID",
+        "B2_BCC",
+        "FCC_A1",
+        "HCP_A3",
+        "AL5FE2",
+        "AL2FE",
+        "AL13FE4",
+        "AL5FE4",
+    ]
     _fig = plt.figure(figsize=(9, 6))
     _axes = _fig.gca()
     binplot(
@@ -209,10 +226,17 @@ def _(mo):
 
 
 @app.cell
-def _(Database, Path, binplot, notebook_path, plt, v):
-    _nbre_path = Path(notebook_path).joinpath("nbre_liu.tdb")
+def _(Database, Path, binplot, database_path, plt, v):
+    _nbre_path = Path(database_path).joinpath("nbre_liu.tdb")
     db_nbre = Database(_nbre_path)
-    my_phases_nbre = ["CHI_RENB", "SIGMARENB", "FCC_RENB", "LIQUID_RENB", "BCC_RENB", "HCP_RENB"]
+    my_phases_nbre = [
+        "CHI_RENB",
+        "SIGMARENB",
+        "FCC_RENB",
+        "LIQUID_RENB",
+        "BCC_RENB",
+        "HCP_RENB",
+    ]
     _fig = plt.figure(figsize=(9, 6))
     _axes = _fig.gca()
     binplot(
