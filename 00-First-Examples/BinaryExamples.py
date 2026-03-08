@@ -82,7 +82,8 @@ def _(mo):
 @app.cell
 def _():
     import matplotlib.pyplot as plt
-    from pycalphad import Database, binplot, variables as v
+    from pycalphad import Database, binplot
+    from pycalphad import variables as v
 
     return Database, binplot, plt, v
 
@@ -141,7 +142,12 @@ def _(Database, Path, binplot, database_path, plt, v):
     _dbf = Database(_almg_path)
     _comps = ["AL", "MG", "VA"]
     _phases = _dbf.phases.keys()
-    binplot(_dbf, _comps, _phases, {v.N: 1, v.P: 101325, v.T: (300, 1000, 10), v.X("MG"): (0, 1, 0.02)})
+    binplot(
+        _dbf,
+        _comps,
+        _phases,
+        {v.N: 1, v.P: 101325, v.T: (300, 1000, 10), v.X("MG"): (0, 1, 0.02)},
+    )
     plt.show()
     return
 
@@ -186,7 +192,16 @@ def _(mo):
 def _(Database, Path, binplot, database_path, plt, v):
     _alfe_path = Path(database_path).joinpath("alfe_sei.TDB")
     db_alfe = Database(_alfe_path)
-    my_phases_alfe = ["LIQUID", "B2_BCC", "FCC_A1", "HCP_A3", "AL5FE2", "AL2FE", "AL13FE4", "AL5FE4"]
+    my_phases_alfe = [
+        "LIQUID",
+        "B2_BCC",
+        "FCC_A1",
+        "HCP_A3",
+        "AL5FE2",
+        "AL2FE",
+        "AL13FE4",
+        "AL5FE4",
+    ]
     _fig = plt.figure(figsize=(9, 6))
     _axes = _fig.gca()
     binplot(
@@ -214,7 +229,14 @@ def _(mo):
 def _(Database, Path, binplot, database_path, plt, v):
     _nbre_path = Path(database_path).joinpath("nbre_liu.tdb")
     db_nbre = Database(_nbre_path)
-    my_phases_nbre = ["CHI_RENB", "SIGMARENB", "FCC_RENB", "LIQUID_RENB", "BCC_RENB", "HCP_RENB"]
+    my_phases_nbre = [
+        "CHI_RENB",
+        "SIGMARENB",
+        "FCC_RENB",
+        "LIQUID_RENB",
+        "BCC_RENB",
+        "HCP_RENB",
+    ]
     _fig = plt.figure(figsize=(9, 6))
     _axes = _fig.gca()
     binplot(
