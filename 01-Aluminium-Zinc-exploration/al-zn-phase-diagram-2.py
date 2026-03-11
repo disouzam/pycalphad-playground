@@ -80,49 +80,14 @@ def _(binplot, db_alzn, plt, v):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Exploring database object
+    # Uses of Al-Zn - quick info
+
+    Source: https://en.wikipedia.org/wiki/Zinc_aluminium
+
+    Zinc-aluminium (ZA) alloys are alloys whose main constituents are zinc and aluminium. Other alloying elements include magnesium and copper. This type of alloy was originally developed for gravity casting. Noranda, New Jersey Zinc Co. Ltd., St. Joe Mineral Co. and the International Lead Zinc Research Organization (ILZRO) were the main companies that pioneered the ZA alloys between the 1950s and the 1970s. They were designed to compete with bronze, cast iron and aluminium using sand and permanent mold casting methods. Distinguishing features of ZA alloys include high as-cast strength, excellent bearing properties, as well as low energy requirements (for melting).
+
+    ZA alloys make good bearings because their final composition includes hard eutectic zinc-aluminium-copper particles embedded in a softer zinc-aluminium matrix. The hard particles provide a low-friction bearing surface, while the softer material wears back to provide space for lubricant to flow, similar to Babbitt metal.
     """)
-    return
-
-
-@app.cell
-def _(db_alzn):
-    print("Elements:")
-    for e in db_alzn.elements:
-        print(e)
-    return
-
-
-@app.cell
-def _(db_alzn):
-    print("Species:")
-    for s in iter(db_alzn.species):
-        print(s)
-    return
-
-
-@app.cell
-def _(db_alzn):
-    print("Phases:")
-    for p, pd in db_alzn.phases.items():
-        print(p)
-        print(f"{pd}\n")
-    return
-
-
-@app.cell
-def _(db_alzn):
-    print("Symbols")
-
-    for syk, syv in db_alzn.symbols.items():
-        print(syk)
-        print(f"{syv}\n")
-    return
-
-
-@app.cell
-def _(db_alzn):
-    db_alzn.references
     return
 
 
