@@ -64,15 +64,20 @@ def _(binplot, db_alzn, plt, v):
 
     all_available_phases = filter_phases(db_alzn, available_elements)
 
-    _fig = plt.figure(figsize=(9, 6))
-    _axes = _fig.gca()
+    fig = plt.figure(figsize=(9, 6))
+    axes = fig.gca()
+
+    # Chart title is added automatically
     binplot(
         database=db_alzn,
         components=available_elements,
         phases=all_available_phases,
         conditions={v.X("ZN"): (0, 1, 0.02), v.T: (300, 1000, 10), v.P: 101325, v.N: 1},
-        plot_kwargs={"ax": _axes},
+        plot_kwargs={"ax": axes},
     )
+
+    # But through matplotlib / Python magic, it can be modified afterwards
+    axes.title.set_text("Al-Zn phase diagram")
     plt.show()
     return
 
