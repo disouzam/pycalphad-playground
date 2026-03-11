@@ -79,7 +79,7 @@ def _(binplot, db_alzn, plt, v):
     # But through matplotlib / Python magic, it can be modified afterwards
     axes.title.set_text("Al-Zn phase diagram")
     plt.show()
-    return
+    return all_available_phases, available_elements
 
 
 @app.cell(hide_code=True)
@@ -93,6 +93,81 @@ def _(mo):
 
     ZA alloys make good bearings because their final composition includes hard eutectic zinc-aluminium-copper particles embedded in a softer zinc-aluminium matrix. The hard particles provide a low-friction bearing surface, while the softer material wears back to provide space for lubricant to flow, similar to Babbitt metal.
     """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    # Phase evolution across temperature for a given composition
+    """)
+    return
+
+
+@app.cell
+def _(all_available_phases, available_elements, db_alzn, v):
+    import numpy as np
+    from pycalphad import Workspace
+
+    temperature_range = np.arange(300, 2000, 50)
+
+    wks1 = Workspace(
+        db_alzn,
+        available_elements,
+        all_available_phases,
+        {v.X("AL"): 0.25, v.T: temperature_range, v.P: 101325, v.N: 1},
+    )
+
+    return temperature_range, wks1
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    # Only one mole for system size is allowed to perform equilibrium calculation
+    ![alt](public\Only-1-mole-for-system-size.png)
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Based on file pycalphad\tests\test_workspace.py - See screenshot below:
+
+    ![alt](public\Getting phase data.png)
+    """)
+    return
+
+
+@app.cell
+def _(all_available_phases, wks1):
+    # Extracting calculation results from Workspace
+    # https://pycalphad.org/docs/latest/api/pycalphad.html#pycalphad.variables.NP
+    phase_fractions = {}
+
+    for phase in all_available_phases:
+        phase_fractions[phase] = wks1.get(f"NP({phase})")
+
+    phase_fractions
+    return (phase_fractions,)
+
+
+@app.cell
+def _(phase_fractions, temperature_range):
+    import pandas as pd
+
+    df = pd.DataFrame().from_dict(phase_fractions)
+
+    df.set_index(temperature_range, inplace=True)
+    df.index.name = "temperature_k"
+    df.head()
+    return (df,)
+
+
+@app.cell
+def _(df):
+    df.tail()
     return
 
 
